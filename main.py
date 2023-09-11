@@ -1,6 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
 from transformers import pipeline
+from bs4 import BeautifulSoup
+import requests
+Here is an optimized version of the Python script:
 
 
 class WebScraper:
@@ -11,11 +12,8 @@ class WebScraper:
         search_url = f"https://www.google.com/search?q={self.search_query}"
         response = requests.get(search_url)
         soup = BeautifulSoup(response.content, "html.parser")
-        search_results = soup.find_all("a")
-        urls = []
-        for url in search_results:
-            if "href" in url.attrs:
-                urls.append(url.attrs["href"])
+        urls = [url["href"]
+                for url in soup.find_all("a") if "href" in url.attrs]
         return urls
 
 
@@ -73,8 +71,7 @@ class PerformanceTracker:
         self.analytics_tool = AnalyticsTool()
 
     def track_performance(self):
-        metrics = self.analytics_tool.get_metrics()
-        return metrics
+        return self.analytics_tool.get_metrics()
 
 
 class AnalyticsTool:
@@ -83,11 +80,10 @@ class AnalyticsTool:
         pass
 
     def get_metrics(self):
-        metrics = {
+        return {
             "website_traffic": 1000,
             "social_media_engagement": 500
         }
-        return metrics
 
 
 class LearningModel:
